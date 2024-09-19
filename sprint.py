@@ -88,3 +88,32 @@ def login_usuario(usuarios):
     else:
         print("\nUsuário ou senha incorretos. Tente novamente.")
         return None
+    
+# Função para exibir a página inicial com opções de cadastro ou login
+def pagina_inicial(usuarios):
+    """Exibe a página de cadastro com opções de cadastrar ou logar."""
+    while True:
+        print(BARRA)
+        print("\nPÁGINA INICIAL\n")
+        print("1 - Cadastrar")
+        print("2 - Login")
+        print("3 - Sair")
+        
+        codigo_cadastro = input("\nEscolha a opção desejada: ").strip()
+        
+        if not codigo_cadastro.isdigit():
+            print("\nOpção inválida. Por favor, insira um número.\n")
+            continue
+        
+        match int(codigo_cadastro):
+            case 1:
+                cadastrar_usuario(usuarios)
+            case 2:
+                usuario_logado = login_usuario(usuarios)
+                if usuario_logado:
+                    return usuario_logado
+            case 3:
+                print("Saindo...")
+                exit()
+            case _:
+                print("\nOpção inválida.\n")
