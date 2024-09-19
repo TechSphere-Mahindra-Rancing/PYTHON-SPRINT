@@ -71,3 +71,20 @@ def cadastrar_usuario(usuarios):
 
         print(f"\n✅ Usuário '{cadastro_usuario}' cadastrado com sucesso!\n")
         return True
+    
+# Função para realizar o login do usuário
+def login_usuario(usuarios):
+    """Realiza o login do usuário."""
+    print(BARRA)
+    print("\nPÁGINA DE LOGIN\n")
+    login_usuario = input("Usuário: ").strip()
+    login_senha = input("Senha: ").strip()
+    senha_hash = hash_senha(login_senha)
+
+    # Verifica se o nome de usuário e senha correspondem aos armazenados
+    if login_usuario in usuarios and usuarios[login_usuario]['senha'] == senha_hash:
+        print(f"\n✅ Usuário '{login_usuario}' logado com sucesso!\n")
+        return login_usuario
+    else:
+        print("\nUsuário ou senha incorretos. Tente novamente.")
+        return None
