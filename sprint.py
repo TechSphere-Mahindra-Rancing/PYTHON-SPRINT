@@ -167,3 +167,27 @@ def conteudo():
                 print("\nOpção inválida.\n")
     except ValueError:
         print("\nEntrada inválida. Insira um número.\n")
+
+# Função para exibir a página de usuário logado
+def pagina_usuario(usuario_logado):
+    """Exibe a página inicial com opções de ver conteúdo ou logout."""
+    while True:
+        print(BARRA)
+        print(f"\nPÁGINA DE USUÁRIO - {usuario_logado}\n")
+        print("1 - Ver conteúdo")
+        print("2 - Logout")
+
+        codigo_inicio = input("\nEscolha a opção desejada: ").strip()
+        
+        if not codigo_inicio.isdigit():
+            print("\nEntrada inválida. Insira um número.\n")
+            continue
+
+        match int(codigo_inicio):
+            case 1:
+                conteudo()
+            case 2:
+                print("\nLogout realizado com sucesso.\n")
+                return
+            case _:
+                print("\nOpção inválida.\n")
