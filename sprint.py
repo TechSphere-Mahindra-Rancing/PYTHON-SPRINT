@@ -191,3 +191,9 @@ def pagina_usuario(usuario_logado):
                 return
             case _:
                 print("\nOpção inválida.\n")
+
+# Execução do programa
+if __name__ == "__main__":
+    boas_vindas()
+    usuario_logado = pagina_inicial(usuarios)
+    pagina_usuario(usuario_logado)
