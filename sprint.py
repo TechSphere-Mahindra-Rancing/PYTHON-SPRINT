@@ -117,3 +117,36 @@ def pagina_inicial(usuarios):
                 exit()
             case _:
                 print("\nOpção inválida.\n")
+
+# Função para exibir informações sobre equipes da Fórmula E
+def equipes():
+    """Exibe a lista de equipes e suas descrições."""
+    equipes_lista = [
+        ("DS Techeetah", "Equipe dominante liderada por Jean-Éric Vergne e António Félix da Costa."),
+        ("Mercedes-Benz EQ", "Desempenho forte com Stoffel Vandoorne e Nyck de Vries."),
+        ("Nissan e.dams", "História de sucesso com Sébastien Buemi e Oliver Rowland."),
+        ("Audi Sport ABT Schaeffler", "Estabelecida com Lucas di Grassi e René Rast."),
+        ("Jaguar Racing", "Representando a marca britânica com Mitch Evans e Sam Bird."),
+        ("BMW i Andretti Motorsport", "Parceria com Jake Dennis e Maximilian Günther."),
+        ("Mahindra Racing", "Presença constante com Alex Lynn e Alexander Sims."),
+        ("Venturi", "Busca resultados sólidos com Edoardo Mortara e Norman Nato."),
+        ("ROKiT Venturi Racing", "Nova parceria com Jake Hughes e Norman Nato."),
+        ("NIO 333", "Melhorando com Oliver Turvey e Tom Blomqvist."),
+        ("Porsche", "Entrou em 2019 com André Lotterer e Pascal Wehrlein.")
+    ]
+    
+    print(BARRA)
+    print("\nEQUIPES\n")
+    
+    for i, equipe in enumerate(equipes_lista, 1):
+        print(f"{i} - {equipe[0]}")
+
+    try:
+        opcao_equipes = int(input("\nEscolha o número da equipe desejada: ").strip())
+        if 1 <= opcao_equipes <= len(equipes_lista):
+            equipe = equipes_lista[opcao_equipes - 1]
+            print(f"\n{equipe[0]}: {equipe[1]}\n")
+        else:
+            print("\nOpção inválida.\n")
+    except ValueError:
+        print("\nEntrada inválida. Insira um número.\n")
