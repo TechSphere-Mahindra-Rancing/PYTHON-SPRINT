@@ -24,3 +24,50 @@ def validar_email(email):
 def hash_senha(senha):
     """Gera o hash da senha utilizando SHA-256."""
     return hashlib.sha256(senha.encode()).hexdigest()
+
+# Função para cadastrar um novo usuário
+def cadastrar_usuario(usuarios):
+    """Realiza o cadastro de um novo usuário."""
+    while True:
+        print(BARRA)
+        print("\nPÁGINA DE CADASTRO\n")
+        nome = input("Nome completo: ").strip()
+        cadastro_usuario = input("Nome de Usuário (deve ser único): ").strip()
+        
+        if not nome or not cadastro_usuario:
+            print("Nome completo e nome de usuário são obrigatórios.")
+            continue
+
+        # Verifica se o nome de usuário já está em uso
+        if cadastro_usuario in usuarios:
+            print(f"O nome de usuário '{cadastro_usuario}' já está em uso.")
+            continue
+        
+        email = input("Email (deve ser único e válido): ").strip()
+        
+        # Verifica se o email já está em uso ou inválido
+        if not validar_email(email):
+            print("Email inválido. Tente novamente.")
+            continue
+        
+        if any(usuario['email'] == email for usuario in usuarios.values()):
+            print(f"O email '{email}' já está em uso.")
+            continue
+        
+        senha = input("Senha: ").strip()
+        
+        if len(senha) < 6:
+            print("A senha deve ter no mínimo 6 caracteres.")
+            continue
+        
+        senha_hash = hash_senha(senha)
+
+        # Armazena as informações do novo usuário
+        usuarios[cadastro_usuario] = {
+            'nome': nome,
+            'email': email,
+            'senha': senha_hash
+        }
+
+        print(f"\n✅ Usuário '{cadastro_usuario}' cadastrado com sucesso!\n")
+        return True
