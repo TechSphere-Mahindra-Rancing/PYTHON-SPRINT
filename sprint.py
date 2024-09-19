@@ -19,3 +19,8 @@ def validar_email(email):
     """Valida o formato de email usando regex."""
     padrao_email = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     return re.match(padrao_email, email)
+
+# Função para criptografar senha
+def hash_senha(senha):
+    """Gera o hash da senha utilizando SHA-256."""
+    return hashlib.sha256(senha.encode()).hexdigest()
