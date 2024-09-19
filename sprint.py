@@ -13,3 +13,9 @@ def boas_vindas():
     print(BARRA)
     print("\nMahindra")
     print("Seja bem vindo(a)!\n")
+
+# Função para validar o formato de email
+def validar_email(email):
+    """Valida o formato de email usando regex."""
+    padrao_email = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    return re.match(padrao_email, email)
