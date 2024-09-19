@@ -150,3 +150,20 @@ def equipes():
             print("\nOpção inválida.\n")
     except ValueError:
         print("\nEntrada inválida. Insira um número.\n")
+
+# Função para exibir a página de conteúdos
+def conteudo():
+    """Exibe a página de conteúdos."""
+    print(BARRA)
+    print("\nPÁGINA DE CONTEÚDOS\n")
+    print("1 - Equipes\n")
+
+    try:
+        opcao_entrada = int(input("Escolha o número do conteúdo desejado: ").strip())
+        match opcao_entrada:
+            case 1:
+                equipes()
+            case _:
+                print("\nOpção inválida.\n")
+    except ValueError:
+        print("\nEntrada inválida. Insira um número.\n")
