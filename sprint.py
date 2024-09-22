@@ -1,3 +1,13 @@
+# Integrantes da TechSphere
+
+# Ianny Raquel Ferreira de Souza - 559096
+# Jean Matheus Mohamed de Oliveira - 555519
+# João Victor Soave - 557595
+# Maria Alice Freitas Araújo - 557516
+# Thiago de Barros Oliveira - 555485
+
+
+# Importações
 import re
 import hashlib
 import random
@@ -24,8 +34,12 @@ def boas_vindas():
 # Função para validar o formato de email
 def validar_email(email):
     """Valida o formato de email usando regex."""
-    padrao_email = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-    return re.match(padrao_email, email)
+    try:
+        padrao_email = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        return bool(re.match(padrao_email, email))
+    except Exception as e:
+        print(f"Erro ao validar email: {e}")
+        return False
 
 # Função para criptografar senha
 def hash_senha(senha):
@@ -131,18 +145,21 @@ def pagina_inicial(usuarios):
             print("\nOpção inválida. Por favor, insira um número.\n")
             continue
 
-        match int(codigo_cadastro):
-            case 1:
-                cadastrar_usuario(usuarios)
-            case 2:
-                usuario_logado = login_usuario(usuarios)
-                if usuario_logado:
-                    return usuario_logado
-            case 3:
-                print("Saindo...")
-                exit()
-            case _:
-                print("\nOpção inválida.\n")
+        try:
+            match int(codigo_cadastro):
+                case 1:
+                    cadastrar_usuario(usuarios)
+                case 2:
+                    usuario_logado = login_usuario(usuarios)
+                    if usuario_logado:
+                        return usuario_logado
+                case 3:
+                    print("Saindo...")
+                    exit()
+                case _:
+                    print("\nOpção inválida.\n")
+        except ValueError:
+            print("\nEntrada inválida. Por favor, insira um número.\n")
 
 # Função para editar o perfil do usuário
 def editar_perfil(usuario_logado):
@@ -184,12 +201,15 @@ def ver_historico_acesso(usuario_logado):
     """Exibe o histórico de acessos do usuário."""
     print(BARRA)
     print("\nHISTÓRICO DE ACESSO\n")
-    acessos = historico_acesso.get(usuario_logado, [])
-    if acessos:
-        for i, acesso in enumerate(acessos, 1):
-            print(f"{i} - {acesso}")
-    else:
-        print("Nenhum histórico de acesso disponível.")
+    try:
+        acessos = historico_acesso.get(usuario_logado, [])
+        if acessos:
+            for i, acesso in enumerate(acessos, 1):
+                print(f"{i} - {acesso}")
+        else:
+            print("Nenhum histórico de acesso disponível.")
+    except Exception as e:
+        print(f"Erro ao exibir histórico de acesso: {e}")
 
 # Função para exibir o desempenho nas temporadas
 def desempenho_temporadas_func(usuario_logado):
@@ -273,26 +293,29 @@ def pagina_usuario(usuario_logado):
             print("\nEntrada inválida. Insira um número.\n")
             continue
 
-        match int(codigo_inicio):
-            case 1:
-                editar_perfil(usuario_logado)
-            case 2:
-                favoritar_equipe(usuario_logado)
-            case 3:
-                ver_historico_acesso(usuario_logado)
-            case 4:
-                desempenho_temporadas_func(usuario_logado)
-            case 5:
-                pontuacao_conquistas_func(usuario_logado)
-            case 6:
-                adicionar_comentarios(usuario_logado)
-            case 7:
-                alterar_tema(usuario_logado)
-            case 8:
-                print("\nLogout realizado com sucesso.\n")
-                return
-            case _:
-                print("\nOpção inválida.\n")
+        try:
+            match int(codigo_inicio):
+                case 1:
+                    editar_perfil(usuario_logado)
+                case 2:
+                    favoritar_equipe(usuario_logado)
+                case 3:
+                    ver_historico_acesso(usuario_logado)
+                case 4:
+                    desempenho_temporadas_func(usuario_logado)
+                case 5:
+                    pontuacao_conquistas_func(usuario_logado)
+                case 6:
+                    adicionar_comentarios(usuario_logado)
+                case 7:
+                    alterar_tema(usuario_logado)
+                case 8:
+                    print("\nLogout realizado com sucesso.\n")
+                    return
+                case _:
+                    print("\nOpção inválida.\n")
+        except ValueError:
+            print("\nEntrada inválida. Por favor, insira um número.\n")
 
 # Execução do programa
 if __name__ == "__main__":
