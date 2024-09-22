@@ -56,3 +56,16 @@ Para executar o projeto em sua máquina local, siga os passos abaixo:
    ```bash
    git clone [https://github.com/seu-usuario/PYTHON-SPRINT.git](https://github.com/TechSphere-Mahindra-Rancing/PYTHON-SPRINT.git)
    cd PYTHON-SPRINT
+   
+3. **Execute o Arquivo Principal**
+   ```bash
+   python sprint.py
+
+## Contribuições
+
+Contribuições são bem-vindas! Se você tem sugestões ou melhorias, sinta-se à vontade para abrir uma issue ou enviar um pull request. Sua contribuição pode ajudar a tornar este projeto ainda melhor.
+
+## Link do Video
+
+
+
