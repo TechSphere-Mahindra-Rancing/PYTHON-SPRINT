@@ -54,6 +54,11 @@ def autenticar_2fa():
     codigo_usuario = input("Insira o código de autenticação enviado: ").strip()
     return codigo_usuario == str(codigo_2fa)
 
+# Função para validar o nome completo
+def validar_nome(nome):
+    """Valida que o nome contém apenas letras e espaços."""
+    return nome.replace(' ', '').isalpha()
+
 # Função para cadastrar um novo usuário
 def cadastrar_usuario(usuarios):
     """Realiza o cadastro de um novo usuário."""
@@ -61,6 +66,12 @@ def cadastrar_usuario(usuarios):
         print(BARRA)
         print("\nPÁGINA DE CADASTRO\n")
         nome = input("Nome completo: ").strip()
+
+        # Verifica se o nome é válido (somente letras e espaços)
+        if not validar_nome(nome):
+            print("Nome inválido. O nome deve conter apenas letras e espaços.")
+            continue
+
         cadastro_usuario = input("Nome de Usuário (deve ser único): ").strip()
 
         if not nome or not cadastro_usuario:
@@ -170,11 +181,22 @@ def editar_perfil(usuario_logado):
     print(BARRA)
     print("\nEDIÇÃO DE PERFIL\n")
     novo_nome = input(f"Nome atual ({usuarios[usuario_logado]['nome']}): ").strip()
+    
+    # Valida o novo nome, se fornecido
+    if novo_nome and not validar_nome(novo_nome):
+        print("Nome inválido. O nome deve conter apenas letras e espaços.")
+        return
+    
     novo_email = input(f"Email atual ({usuarios[usuario_logado]['email']}): ").strip()
+
+    # Valida o novo email, se fornecido
+    if novo_email and not validar_email(novo_email):
+        print("Email inválido. Tente novamente.")
+        return
 
     if novo_nome:
         usuarios[usuario_logado]['nome'] = novo_nome
-    if novo_email and validar_email(novo_email):
+    if novo_email:
         usuarios[usuario_logado]['email'] = novo_email
 
     print("\nPerfil atualizado com sucesso!\n")
