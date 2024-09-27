@@ -7,7 +7,7 @@
 # Thiago de Barros Oliveira - 555485
 
 
-# Importações
+# Importações de bibliotecas
 import re
 import hashlib
 import random
@@ -367,9 +367,9 @@ def pagina_usuario(usuario_logado):
                 case 7:
                     alterar_tema(usuario_logado)
                 case 8:
-                    ver_favoritos(usuario_logado)  # Nova funcionalidade
+                    ver_favoritos(usuario_logado)  
                 case 9:
-                    ver_comentarios(usuario_logado)  # Nova funcionalidade
+                    ver_comentarios(usuario_logado)  
                 case 10:
                     print("\nLogout realizado com sucesso.\n")
                     return
