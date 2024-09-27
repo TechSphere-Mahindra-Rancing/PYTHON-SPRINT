@@ -1,6 +1,6 @@
-# TechSphere
+# Sistema de Cadastro e Autenticação de Usuário - TechSphere
 
-🏎️ **TechSphere** é uma plataforma interativa projetada para entusiastas da Fórmula E. Aqui, os usuários podem explorar informações sobre equipes, registrar desempenhos e interagir com a comunidade, tudo isso enquanto acumulam pontos e conquistas!
+🏎️ **Sistema de Cadastro e Autenticação de Usuário - TechSphere** é uma plataforma interativa projetada para entusiastas da Fórmula E. Aqui, os usuários podem explorar informações sobre equipes, registrar desempenhos e interagir com a comunidade, tudo isso enquanto acumulam pontos e conquistas!
 
 ## Índice
 
