@@ -272,6 +272,61 @@ def alterar_tema(usuario_logado):
     
     print(f"Tema alterado para {temas[usuario_logado]}.")
 
+# Função para ver equipes favoritadas
+def ver_favoritos(usuario_logado):
+    """Exibe as equipes favoritadas pelo usuário."""
+    print(BARRA)
+    print("\nEQUIPES FAVORITADAS\n")
+    equipes_favoritas = favoritos.get(usuario_logado, [])
+    
+    if equipes_favoritas:
+        for equipe in equipes_favoritas:
+            print(f"- {equipe}")
+    else:
+        print("Nenhuma equipe favoritada ainda.")
+
+# Função para ver comentários feitos sobre equipes
+def ver_comentarios(usuario_logado):
+    """Exibe os comentários feitos pelo usuário sobre as equipes."""
+    print(BARRA)
+    print("\nCOMENTÁRIOS FEITOS\n")
+    comentarios = comentarios_equipes.get(usuario_logado, [])
+    
+    if comentarios:
+        for equipe, comentario in comentarios:
+            print(f"Equipe: {equipe}\nComentário: {comentario}\n")
+    else:
+        print("Nenhum comentário feito ainda.")
+
+# Atualizando a função de adicionar comentários para incluir pontuação
+def adicionar_comentarios(usuario_logado):
+    """Permite ao usuário adicionar comentários sobre equipes e ganha pontos por isso."""
+    equipes_lista = ["DS Techeetah", "Mercedes-Benz EQ", "Nissan e.dams", "Audi Sport ABT Schaeffler", "Jaguar Racing"]
+    
+    print(BARRA)
+    print("\nADICIONAR COMENTÁRIOS SOBRE EQUIPES\n")
+    
+    for i, equipe in enumerate(equipes_lista, 1):
+        print(f"{i} - {equipe}")
+
+    opcao = input("\nEscolha o número da equipe para comentar: ").strip()
+
+    if opcao.isdigit() and 1 <= int(opcao) <= len(equipes_lista):
+        equipe_comentada = equipes_lista[int(opcao) - 1]
+        comentario = input("Seu comentário: ").strip()
+
+        # Adiciona o comentário à lista do usuário
+        comentarios_equipes.setdefault(usuario_logado, []).append((equipe_comentada, comentario))
+        print(f"\nComentário sobre {equipe_comentada} adicionado com sucesso!\n")
+
+        # Verifica se o usuário está comentando pela primeira vez
+        if len(comentarios_equipes[usuario_logado]) == 1:
+            print("🎉 Parabéns! Você fez seu primeiro comentário e ganhou uma conquista!")
+            pontuacao_conquistas[usuario_logado] += 10  # Adiciona 10 pontos pela conquista
+            print(f"Você ganhou 10 pontos! Sua pontuação total agora é: {pontuacao_conquistas[usuario_logado]} pontos.\n")
+    else:
+        print("\nOpção inválida.\n")
+
 # Função para exibir a página de usuário logado
 def pagina_usuario(usuario_logado):
     """Exibe a página inicial com opções de ver conteúdo ou logout."""
@@ -285,7 +340,9 @@ def pagina_usuario(usuario_logado):
         print("5 - Pontuação e Conquistas")
         print("6 - Comentários sobre Equipes")
         print("7 - Alterar Tema")
-        print("8 - Logout")
+        print("8 - Ver Equipes Favoritadas")  # Nova opção
+        print("9 - Ver Comentários Feitos")  # Nova opção
+        print("10 - Logout")
 
         codigo_inicio = input("\nEscolha a opção desejada: ").strip()
 
@@ -310,6 +367,10 @@ def pagina_usuario(usuario_logado):
                 case 7:
                     alterar_tema(usuario_logado)
                 case 8:
+                    ver_favoritos(usuario_logado)  # Nova funcionalidade
+                case 9:
+                    ver_comentarios(usuario_logado)  # Nova funcionalidade
+                case 10:
                     print("\nLogout realizado com sucesso.\n")
                     return
                 case _:
