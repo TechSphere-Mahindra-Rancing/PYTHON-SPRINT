@@ -24,12 +24,17 @@ desempenho_temporadas = {}
 pontuacao_conquistas = {}
 temas = {}
 
-# Função para exibir mensagem de boas-vindas
+# Função para exibir uma mensagem de boas-vindas
 def boas_vindas():
-    """Exibe mensagem de boas-vindas."""
+    """Exibe uma mensagem de boas-vindas ao usuário."""
     print(BARRA)
-    print("\nMahindra")
-    print("Seja bem vindo(a)!\n")
+    print("\n🏎️ Bem-vindo(a) à TechSphere! 🌐\n")
+    print("🚀 Sua plataforma definitiva para acompanhar tudo sobre a Fórmula E!")
+    print("Aqui, você pode explorar as melhores equipes, seus pilotos favoritos,")
+    print("e muito mais. Prepare-se para acelerar com a inovação e a tecnologia da eletricidade!\n")
+    print("A TechSphere é mais do que uma plataforma, é a sua comunidade de alta velocidade.\n")
+    print("Estamos felizes por ter você a bordo! Vamos começar?\n")
+    print(BARRA)
 
 # Função para validar o formato de email
 def validar_email(email):
