@@ -74,7 +74,7 @@ def cadastrar_usuario(usuarios):
 
         # Verifica se o nome é válido (somente letras e espaços)
         if not validar_nome(nome):
-            print("Nome inválido. O nome deve conter apenas letras e espaços.")
+            print("\nNome inválido. O nome deve conter apenas letras e espaços.")
             continue
 
         cadastro_usuario = input("Nome de Usuário (deve ser único): ").strip()
@@ -114,13 +114,14 @@ def cadastrar_usuario(usuarios):
             'senha': senha_hash
         }
         favoritos[cadastro_usuario] = []
-        desempenho_temporadas[cadastro_usuario] = {}
+        desempenho_temporadas[cadastro_usuario] = []  # Alterado para lista
         comentarios_equipes[cadastro_usuario] = []
         pontuacao_conquistas[cadastro_usuario] = 0
         temas[cadastro_usuario] = 'Claro'  # Tema padrão
 
         print(f"\n✅ Usuário '{cadastro_usuario}' cadastrado com sucesso!\n")
         return True
+
 
 # Função para realizar o login do usuário
 def login_usuario(usuarios):
@@ -189,7 +190,7 @@ def editar_perfil(usuario_logado):
     
     # Valida o novo nome, se fornecido
     if novo_nome and not validar_nome(novo_nome):
-        print("Nome inválido. O nome deve conter apenas letras e espaços.")
+        print("\nNome inválido. O nome deve conter apenas letras e espaços.")
         return
     
     novo_email = input(f"Email atual ({usuarios[usuario_logado]['email']}): ").strip()
@@ -246,17 +247,70 @@ def ver_historico_acesso(usuario_logado):
     except Exception as e:
         print(f"Erro ao exibir histórico de acesso: {e}")
 
-# Função para exibir o desempenho nas temporadas
+def registrar_desempenho(usuario_logado):
+    """Permite registrar o desempenho do usuário em uma temporada."""
+    equipes_lista = ["DS Techeetah", "Mercedes-Benz EQ", "Nissan e.dams", "Audi Sport ABT Schaeffler", "Jaguar Racing"]
+
+    print(BARRA)
+    print("\nREGISTRAR DESEMPENHO NAS TEMPORADAS\n")
+
+    # Exibir lista de equipes
+    for i, equipe in enumerate(equipes_lista, 1):
+        print(f"{i} - {equipe}")
+
+    opcao = input("\nEscolha o número da equipe que deseja registrar o desempenho: ").strip()
+
+    if opcao.isdigit() and 1 <= int(opcao) <= len(equipes_lista):
+        equipe = equipes_lista[int(opcao) - 1]
+
+        # Solicitar o ano da temporada
+        ano = input("Digite o ano da temporada: ").strip()
+
+        # Verificar se o ano é um número válido
+        if not ano.isdigit() or len(ano) != 4:
+            print("Ano inválido. Por favor, insira um ano válido com 4 dígitos.")
+            return
+
+        # Solicitar o número de vitórias
+        vitorias = input("Digite a quantidade de vitórias: ").strip()
+
+        if not vitorias.isdigit() or int(vitorias) < 0:
+            print("Quantidade de vitórias inválida. Insira um número válido.")
+            return
+
+        # Verificar se já existe um registro para o usuário
+        if usuario_logado not in desempenho_temporadas:
+            desempenho_temporadas[usuario_logado] = []  # Inicializar a lista de desempenhos para o usuário
+
+        # Registrar o desempenho
+        desempenho_temporadas[usuario_logado].append({
+            'equipe': equipe,
+            'ano': ano,
+            'vitorias': int(vitorias)
+        })
+
+        print(f"\n✅ Desempenho registrado com sucesso para a equipe {equipe} na temporada {ano}!\n")
+    else:
+        print("\nOpção inválida.\n")
+
+
+
 def desempenho_temporadas_func(usuario_logado):
-    """Exibe o desempenho do usuário nas temporadas.""" 
+    """Exibe o desempenho do usuário nas temporadas."""
     print(BARRA)
     print("\nDESEMPENHO NAS TEMPORADAS\n")
-    desempenho = desempenho_temporadas.get(usuario_logado, {})
+    
+    desempenho = desempenho_temporadas.get(usuario_logado, [])
+
     if desempenho:
-        for temporada, pontos in desempenho.items():
-            print(f"{temporada}: {pontos} pontos")
+        for i, registro in enumerate(desempenho, 1):
+            equipe = registro['equipe']
+            ano = registro['ano']
+            vitorias = registro['vitorias']
+            print(f"{i}. Equipe: {equipe}, Ano: {ano}, Vitórias: {vitorias}")
     else:
         print("Nenhum desempenho registrado.")
+
 
 # Função para exibir a pontuação e conquistas
 def pontuacao_conquistas_func(usuario_logado):
@@ -301,7 +355,6 @@ def ver_comentarios(usuario_logado):
     else:
         print("Nenhum comentário registrado.")
 
-# Função principal do programa
 def main():
     """Executa o programa."""
     boas_vindas()
@@ -314,11 +367,12 @@ def main():
         print("2 - Favoritar Equipe")
         print("3 - Ver Favoritos")
         print("4 - Ver Histórico de Acesso")
-        print("5 - Desempenho nas Temporadas")
-        print("6 - Pontuação e Conquistas")
-        print("7 - Adicionar Comentários")
-        print("8 - Ver Comentários Feitos")
-        print("9 - Sair")
+        print("5 - Registrar Desempenho nas Temporadas")  # Adicionando a opção aqui
+        print("6 - Desempenho nas Temporadas")
+        print("7 - Pontuação e Conquistas")
+        print("8 - Adicionar Comentários")
+        print("9 - Ver Comentários Feitos")
+        print("10 - Sair")
 
         opcao_usuario = input("\nEscolha a opção desejada: ").strip()
 
@@ -337,14 +391,16 @@ def main():
                 case 4:
                     ver_historico_acesso(usuario_logado)
                 case 5:
-                    desempenho_temporadas_func(usuario_logado)
+                    registrar_desempenho(usuario_logado)  # Chamada da função aqui
                 case 6:
-                    pontuacao_conquistas_func(usuario_logado)
+                    desempenho_temporadas_func(usuario_logado) 
                 case 7:
-                    adicionar_comentarios(usuario_logado)
+                    pontuacao_conquistas_func(usuario_logado)
                 case 8:
-                    ver_comentarios(usuario_logado)
+                    adicionar_comentarios(usuario_logado)                  
                 case 9:
+                    ver_comentarios(usuario_logado)
+                case 10:
                     print("Saindo...")
                     exit()
                 case _:
