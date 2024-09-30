@@ -10,7 +10,7 @@
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Instalação](#instalação)
 - [Uso](#uso)
-- [Link do Vídeo](#link-do-vídeo)
+- [Link do Vídeo](https://youtu.be/Wx_ARtMNVJ0)
 
 ## Visão Geral
 
